@@ -23,7 +23,7 @@
       <div class="divider-star text-white">&#9733;</div>
 
       <p class="landing__entry">
-        $20 entry to the &ldquo;non test&rdquo;
+        $20 entry to the &ldquo;non-test&rdquo;
       </p>
 
       <p class="landing__time">Registration starts 11am</p>
@@ -38,10 +38,9 @@
               v-for="(cat, i) in categories"
               :key="cat"
               dark
-              outline
               text-color="white"
               class="landing__chip"
-              :style="{ borderColor: rainbowColors[i], color: rainbowColors[i] }"
+              :style="{ backgroundColor: rainbowColors[i] }"
             >
               {{ cat }}
             </q-chip>
@@ -158,6 +157,9 @@ const categories = [
 </script>
 
 <style lang="scss" scoped>
+// ─── MOBILE-FIRST (phones, < 600px) ─────────────────────────
+
+// Box
 .landing {
   display: flex;
   align-items: center;
@@ -165,56 +167,57 @@ const categories = [
   min-height: 100vh;
   color: #fff;
   text-align: center;
-  padding: 16px 10px;
+  padding: 10px;
 }
 
 .landing__content {
   position: relative;
   z-index: 1;
-  max-width: 680px;
+  width: 100%;
   background: rgba(0, 0, 0, 0.75);
   border-radius: 14px;
-  padding: 24px 16px;
+  padding: 28px 16px;
 }
 
+// Text
 .landing__date {
-  font-size: 0.8rem;
-  letter-spacing: 0.2em;
+  font-size: 2.8vw;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  margin: 0 0 8px;
+  margin: 0 0 10px;
   opacity: 0.85;
 }
 
 .landing__title {
-  font-size: clamp(2rem, 6vw, 3.6rem);
+  font-size: 9.5vw;
   font-weight: 900;
-  line-height: 1.1;
+  line-height: 1.05;
   margin: 0 0 4px;
   text-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
 }
 
 .landing__entry {
-  font-size: 1.1rem;
-  margin: 0 0 2px;
+  font-size: 4.4vw;
+  margin: 0 0 4px;
   font-weight: 500;
 }
 
 .landing__time {
-  font-size: 0.95rem;
+  font-size: 3.8vw;
   margin: 0;
   opacity: 0.85;
 }
 
 .landing__categories-label {
-  font-size: 0.75rem;
+  font-size: 3.2vw;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  margin: 0 0 8px;
+  margin: 0 0 10px;
   opacity: 0.7;
 }
 
 .landing__chips-wrap {
-  width: 95%;
+  width: 100%;
   margin: 0 auto;
 }
 
@@ -226,9 +229,11 @@ const categories = [
 }
 
 .landing__chip {
-  font-size: 0.75rem;
+  font-size: 3vw;
   letter-spacing: 0.04em;
 }
+
+// ─── Credit / easter-egg (not size-dependent) ───────────────
 
 .credit {
   position: fixed;
@@ -336,22 +341,31 @@ const categories = [
   opacity: 0;
 }
 
-@media (min-width: 768px) {
+// ─── DESKTOP (≥ 600px) ──────────────────────────────────────
+
+@media (min-width: 600px) {
+  // Box
   .landing {
     padding: 40px 20px;
   }
 
   .landing__content {
+    max-width: 680px;
+    width: auto;
     border-radius: 20px;
     padding: 48px 40px;
   }
 
+  // Text — lock to rem so they stop scaling with viewport
   .landing__date {
     font-size: 1rem;
+    letter-spacing: 0.2em;
     margin: 0 0 16px;
   }
 
   .landing__title {
+    font-size: clamp(2.8rem, 5vw, 3.6rem);
+    line-height: 1.1;
     margin: 0 0 8px;
   }
 

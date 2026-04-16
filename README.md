@@ -111,6 +111,6 @@ hoedownatthehoof.ca/
 | Field            | Value                                    |
 | ---------------- | ---------------------------------------- |
 | Date             | Saturday June 20th, 2026                 |
-| Entry Fee        | $20 to the "non test"                    |
+| Entry Fee        | $20 to the "non-test"                    |
 | Registration     | Starts 11 am                             |
 | Categories       | Groms (under 16), Women's, Masters (over 40), Legends (over 50), Open, Best Trick |
