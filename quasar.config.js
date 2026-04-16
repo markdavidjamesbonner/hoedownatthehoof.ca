@@ -1,0 +1,42 @@
+const { configure } = require('quasar/wrappers')
+
+module.exports = configure(function (/* ctx */) {
+  return {
+    boot: [],
+
+    css: ['app.scss'],
+
+    extras: [
+      'material-icons',
+    ],
+
+    build: {
+      target: {
+        browser: ['es2019', 'edge88', 'firefox78', 'chrome87', 'safari13.1'],
+        node: 'node20',
+      },
+      vueRouterMode: 'history',
+    },
+
+    devServer: {
+      open: true,
+    },
+
+    framework: {
+      config: {},
+      plugins: [],
+    },
+
+    animations: [],
+
+    ssr: {
+      pwa: false,
+      prodPort: 3000,
+      middlewares: ['render'],
+    },
+
+    pwa: {
+      workboxMode: 'GenerateSW',
+    },
+  }
+})
