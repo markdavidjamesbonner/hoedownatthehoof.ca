@@ -22,9 +22,7 @@
 
       <div class="divider-star text-white">&#9733;</div>
 
-      <p class="landing__entry">
-        $20 entry to the &ldquo;non-test&rdquo;
-      </p>
+      <p class="landing__entry">$20 entry to the &ldquo;non-test&rdquo;</p>
 
       <p class="landing__time">Registration starts 11am</p>
 
@@ -33,20 +31,80 @@
       <p class="landing__categories-label">Categories</p>
 
       <div class="landing__chips-wrap">
-          <div class="landing__chips">
-            <q-chip
-              v-for="(cat, i) in categories"
-              :key="cat"
-              dark
-              text-color="white"
-              class="landing__chip"
-              :style="{ backgroundColor: rainbowColors[i] }"
-            >
-              {{ cat }}
-            </q-chip>
-          </div>
+        <div class="landing__chips">
+          <q-chip
+            v-for="(cat, i) in categories"
+            :key="cat"
+            dark
+            text-color="white"
+            class="landing__chip"
+            :style="{ backgroundColor: rainbowColors[i] }"
+          >
+            {{ cat }}
+          </q-chip>
+        </div>
       </div>
 
+      <div class="divider-star text-white">&#9733;</div>
+
+      <p class="landing__people">
+        <span>
+          DJ: &nbsp;
+          <a
+            href="https://instagram.com/josh_reid_randell"
+            target="_blank"
+            rel="noopener"
+            :style="{ color: rainbowColors[0] }"
+            >@josh_reid_randell</a
+          >
+        </span>
+        <br />
+        <span>
+          MCs: &nbsp;
+          <a
+            href="https://instagram.com/built4gnar"
+            target="_blank"
+            rel="noopener"
+            :style="{ color: rainbowColors[1] }"
+            >@built4gnar</a
+          >
+          &nbsp;&bull;&nbsp;
+          <a
+            href="https://instagram.com/word_zine"
+            target="_blank"
+            rel="noopener"
+            :style="{ color: rainbowColors[2] }"
+            >@word_zine</a
+          >
+        </span>
+        <br />
+        <span>
+          Judges: &nbsp;
+          <a
+            href="https://instagram.com/rogerblinoff"
+            target="_blank"
+            rel="noopener"
+            :style="{ color: rainbowColors[3] }"
+            >@rogerblinoff</a
+          >
+          &nbsp;&bull;&nbsp;
+          <a
+            href="https://instagram.com/warm_salad"
+            target="_blank"
+            rel="noopener"
+            :style="{ color: rainbowColors[4] }"
+            >@warm_salad</a
+          >
+          &nbsp;&bull;&nbsp;
+          <a
+            href="https://instagram.com/crayoburn_factory"
+            target="_blank"
+            rel="noopener"
+            :style="{ color: rainbowColors[5] }"
+            >@crayoburn_factory</a
+          >
+        </span>
+      </p>
     </div>
 
     <div class="credit">
@@ -58,7 +116,13 @@
       />
       <span class="credit__text">
         made with love by
-        <a href="https://wetsandwich.com" target="_blank" rel="noopener" class="credit__link">mark</a>
+        <a
+          href="https://wetsandwich.com"
+          target="_blank"
+          rel="noopener"
+          class="credit__link"
+          >mark</a
+        >
       </span>
     </div>
 
@@ -66,7 +130,9 @@
       <Transition name="egg-fade">
         <div v-if="showVideo" class="egg-backdrop" @click.self="closeVideo">
           <div class="egg-player">
-            <button class="egg-player__close" @click="closeVideo">&times;</button>
+            <button class="egg-player__close" @click="closeVideo">
+              &times;
+            </button>
             <video
               ref="videoEl"
               class="egg-player__video"
@@ -83,77 +149,86 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
-import bg1 from '../assets/background1.jpg'
-import bg2 from '../assets/background2.jpg'
-import bg3 from '../assets/background3.jpg'
-import bg4 from '../assets/background4.jpg'
-import markHead from '../assets/mark_head.png'
-import partyVideo from '../assets/party_all_the_time.mp4'
+import { ref, onMounted, onUnmounted } from "vue";
+import bg1 from "../assets/background1.jpg";
+import bg2 from "../assets/background2.jpg";
+import bg3 from "../assets/background3.jpg";
+import bg4 from "../assets/background4.jpg";
+import markHead from "../assets/mark_head.png";
+import partyVideo from "../assets/party_all_the_time.mp4";
 
-const ROTATION_MS = 4000
-const FADE_MS = 1000
+const ROTATION_MS = 4000;
+const FADE_MS = 1000;
 
-const images = [bg1, bg2, bg3, bg4]
+const images = [bg1, bg2, bg3, bg4];
 
-const activeLayer = ref('a')
-const layerA = ref(images[0] ?? '')
-const layerB = ref(images[1] ?? images[0] ?? '')
-let currentIndex = 0
-let intervalId = null
+const activeLayer = ref("a");
+const layerA = ref(images[0] ?? "");
+const layerB = ref(images[1] ?? images[0] ?? "");
+let currentIndex = 0;
+let intervalId = null;
 
-function advance () {
-  if (images.length <= 1) return
+function advance() {
+  if (images.length <= 1) return;
 
-  currentIndex = (currentIndex + 1) % images.length
+  currentIndex = (currentIndex + 1) % images.length;
 
-  if (activeLayer.value === 'a') {
-    layerB.value = images[currentIndex]
-    activeLayer.value = 'b'
+  if (activeLayer.value === "a") {
+    layerB.value = images[currentIndex];
+    activeLayer.value = "b";
     setTimeout(() => {
-      layerA.value = images[(currentIndex + 1) % images.length]
-    }, FADE_MS)
+      layerA.value = images[(currentIndex + 1) % images.length];
+    }, FADE_MS);
   } else {
-    layerA.value = images[currentIndex]
-    activeLayer.value = 'a'
+    layerA.value = images[currentIndex];
+    activeLayer.value = "a";
     setTimeout(() => {
-      layerB.value = images[(currentIndex + 1) % images.length]
-    }, FADE_MS)
+      layerB.value = images[(currentIndex + 1) % images.length];
+    }, FADE_MS);
   }
 }
 
 onMounted(() => {
-  images.forEach(src => { new Image().src = src })
+  images.forEach((src) => {
+    new Image().src = src;
+  });
   if (images.length > 1) {
-    intervalId = setInterval(advance, ROTATION_MS)
+    intervalId = setInterval(advance, ROTATION_MS);
   }
-})
+});
 
 onUnmounted(() => {
-  if (intervalId) clearInterval(intervalId)
-})
+  if (intervalId) clearInterval(intervalId);
+});
 
-const showVideo = ref(false)
-const videoEl = ref(null)
+const showVideo = ref(false);
+const videoEl = ref(null);
 
-function closeVideo () {
-  showVideo.value = false
+function closeVideo() {
+  showVideo.value = false;
   if (videoEl.value) {
-    videoEl.value.pause()
-    videoEl.value.currentTime = 0
+    videoEl.value.pause();
+    videoEl.value.currentTime = 0;
   }
 }
 
-const rainbowColors = ['#FF4444', '#FF8C00', '#FFD700', '#4CAF50', '#42A5F5', '#AB47BC']
+const rainbowColors = [
+  "#FF4444",
+  "#FF8C00",
+  "#FFD700",
+  "#4CAF50",
+  "#42A5F5",
+  "#AB47BC",
+];
 
 const categories = [
-  'Groms (under 16)',
-  'Women\'s',
-  'Masters (over 40)',
-  'Legends (over 50)',
-  'Open',
-  'Best Trick',
-]
+  "Groms (under 16)",
+  "Women's",
+  "Masters (over 40)",
+  "Legends (over 50)",
+  "Open",
+  "Best Trick",
+];
 </script>
 
 <style lang="scss" scoped>
@@ -166,7 +241,7 @@ const categories = [
   justify-content: center;
   min-height: 100vh;
   color: #fff;
-  text-align: center;
+  //   text-align: center;
   padding: 10px;
 }
 
@@ -224,13 +299,18 @@ const categories = [
 .landing__chips {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  gap: 8px;
+  //   justify-content: center;
+  //   gap: 8px;
 }
 
 .landing__chip {
   font-size: 3vw;
   letter-spacing: 0.04em;
+}
+
+.landing__people {
+  font-size: 0.85rem;
+  font-weight: 700;
 }
 
 // ─── Credit / easter-egg (not size-dependent) ───────────────
@@ -261,12 +341,31 @@ const categories = [
 }
 
 @keyframes wiggle {
-  0%, 8%, 100% { transform: rotate(0deg); }
-  1% { transform: rotate(-12deg); }
-  2.5% { transform: rotate(10deg); }
-  4% { transform: rotate(-8deg); }
-  5.5% { transform: rotate(6deg); }
-  7% { transform: rotate(-3deg); }
+  0%,
+  8%,
+  100% {
+    transform: rotate(0deg);
+  }
+
+  1% {
+    transform: rotate(-12deg);
+  }
+
+  2.5% {
+    transform: rotate(10deg);
+  }
+
+  4% {
+    transform: rotate(-8deg);
+  }
+
+  5.5% {
+    transform: rotate(6deg);
+  }
+
+  7% {
+    transform: rotate(-3deg);
+  }
 }
 
 .credit__text {
@@ -381,10 +480,6 @@ const categories = [
   .landing__categories-label {
     font-size: 0.85rem;
     margin: 0 0 12px;
-  }
-
-  .landing__chips-wrap {
-    width: 75%;
   }
 
   .landing__chip {
