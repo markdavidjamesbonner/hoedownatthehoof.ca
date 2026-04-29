@@ -27,9 +27,9 @@
         src="../assets/flyer/poster_hoedown_2026_04_cropped.gif"
         alt="Hoedown at The Hoof 2026 poster"
         class="landing__logo"
-        width="65%"
+        width="35%"
         height="auto"
-        style="margin: 50px auto; display: block;"
+        style="margin: 10px auto; display: block;"
       >
 
       <p class="landing__entry">$20 entry to the &ldquo;non-test&rdquo;</p>
