@@ -20,7 +20,17 @@
         Hoedown at The Hoof
       </h1>
 
-      <div class="divider-star text-white">&#9733;</div>
+      <!-- <div class="divider-star text-white">&#9733;</div> -->
+
+      <!-- src="../assets/flyer/poster_hoedown_2026_01_cropped.jpg" -->
+      <img
+        src="../assets/flyer/poster_hoedown_2026_04_cropped.gif"
+        alt="Hoedown at The Hoof 2026 poster"
+        class="landing__logo"
+        width="65%"
+        height="auto"
+        style="margin: 50px auto; display: block;"
+      >
 
       <p class="landing__entry">$20 entry to the &ldquo;non-test&rdquo;</p>
 
@@ -156,6 +166,8 @@ import bg3 from "../assets/background3.jpg";
 import bg4 from "../assets/background4.jpg";
 import markHead from "../assets/mark_head.png";
 import partyVideo from "../assets/party_all_the_time.mp4";
+import poster from "../assets/flyer/poster_hoedown_2026_01_cropped.jpg";
+import posterGif from "../assets/flyer/poster_hoedown_2026_04_cropped.gif";
 
 const ROTATION_MS = 4000;
 const FADE_MS = 1000;
