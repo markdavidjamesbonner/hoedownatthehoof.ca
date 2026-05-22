@@ -15,6 +15,7 @@ import cityOfToronto from "../assets/sponsors/City_of_Toronto.png";
 import clarksideShopdogs from "../assets/sponsors/Clarkside_Shopdogs.png";
 import comacanSkateboards from "../assets/sponsors/Comacan_Skateboards.png";
 import drivewaySkateshop from "../assets/sponsors/Driveway_Skateshop.png";
+import drivewaySkateshopWhite from "../assets/sponsors/Driveway_Skateshop_white.png";
 import gnarOptics from "../assets/sponsors/GNAR_OPTICS.png";
 import hammerSkateboard from "../assets/sponsors/Hammer_Skateboard.png";
 import heartbeatHotsauce from "../assets/sponsors/Heartbeat_Hotsauce.png";
@@ -24,8 +25,10 @@ import onTheSpotCleaners from "../assets/sponsors/On_the_Spot_Cleaners.png";
 import ontarioSkateboarding from "../assets/sponsors/Ontario_Skateboarding.png";
 import sbcMedia from "../assets/sponsors/SBC_Media.png";
 import streetArtToronto from "../assets/sponsors/Street_Art_Toronto.png";
+import streetArtTorontoWhite from "../assets/sponsors/Street_Art_Toronto_white.png";
 import witzelDyce from "../assets/sponsors/Witzel_Dyce_Engineering.png";
 import wordZine from "../assets/sponsors/Word_Zine.png";
+import wordZineWhite from "../assets/sponsors/Word_Zine_white.png";
 import ehTeam from "../assets/sponsors/ehteam.png";
 
 /** Toggle marquees without touching layout code. */
@@ -59,7 +62,12 @@ export const sponsors = [
   { id: "city-of-toronto", name: "City of Toronto", logo: cityOfToronto },
   { id: "clarkside-shopdogs", name: "Clarkside Shopdogs", logo: clarksideShopdogs },
   { id: "comacan", name: "Comacan Skateboards", logo: comacanSkateboards },
-  { id: "driveway", name: "Driveway Skateshop", logo: drivewaySkateshop },
+  {
+    id: "driveway",
+    name: "Driveway Skateshop",
+    logo: drivewaySkateshop,
+    logoOnDark: drivewaySkateshopWhite,
+  },
   { id: "gnar-optics", name: "Gnar Optics", logo: gnarOptics },
   { id: "hammer", name: "Hammer Skateboard", logo: hammerSkateboard },
   { id: "heartbeat-hotsauce", name: "Heartbeat Hotsauce", logo: heartbeatHotsauce },
@@ -68,9 +76,19 @@ export const sponsors = [
   { id: "on-the-spot", name: "On The Spot Cleaners", logo: onTheSpotCleaners },
   { id: "ontario-skateboarding", name: "Ontario Skateboarding", logo: ontarioSkateboarding },
   { id: "sbc-media", name: "SBC Media", logo: sbcMedia },
-  { id: "street-art-toronto", name: "Street Art Toronto", logo: streetArtToronto },
+  {
+    id: "street-art-toronto",
+    name: "Street Art Toronto",
+    logo: streetArtToronto,
+    logoOnDark: streetArtTorontoWhite,
+  },
   { id: "witzel-dyce", name: "Witzel Dyce Engineering", logo: witzelDyce },
-  { id: "word-zine", name: "Word Zine", logo: wordZine },
+  {
+    id: "word-zine",
+    name: "Word Zine",
+    logo: wordZine,
+    logoOnDark: wordZineWhite,
+  },
   { id: "eh-team", name: "eh team", logo: ehTeam },
 ];
 
