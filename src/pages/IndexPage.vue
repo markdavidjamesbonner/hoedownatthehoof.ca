@@ -12,6 +12,8 @@
     />
     <div class="hero-overlay" />
 
+    <SponsorMarquees />
+
     <div class="landing__content">
       <p class="landing__date">Saturday June 20th, 2026</p>
 
@@ -22,15 +24,19 @@
 
       <!-- <div class="divider-star text-white">&#9733;</div> -->
 
-      <!-- src="../assets/flyer/poster_hoedown_2026_01_cropped.jpg" -->
-      <img
-        src="../assets/flyer/poster_hoedown_2026_04_cropped.gif"
-        alt="Hoedown at The Hoof 2026 poster"
-        class="landing__logo"
-        width="35%"
-        height="auto"
-        style="margin: 10px auto; display: block;"
-      >
+      <div class="landing__moose-block" style="margin: 25px;">
+        <img
+          ref="mooseRef"
+          :src="mooseArt"
+          alt=""
+          class="landing__moose"
+          width="703"
+          height="515"
+          decoding="async"
+        />
+
+        <SponsorMarqueeRow />
+      </div>
 
       <p class="landing__entry">$20 entry to the &ldquo;non-test&rdquo;</p>
 
@@ -138,6 +144,20 @@
             </span>
           </div>
         </a>
+
+        <a class="update-card" >
+          <div class="update-card__badge" :style="{ backgroundColor: rainbowColors[1] }">
+            UPDATE: May 22
+          </div>
+          <div class="update-card__body">
+            <span class="update-card__name">Sponsors</span>
+            <span class="update-card__detail">Thanks for all the help, everyone!</span>
+            <span class="update-card__cta">
+              Stay tuned! (*If anyone has any better image files and wants to update their logo, please get at me.)
+            </span>
+          </div>
+        </a>
+
       </div>
 
       <div class="landing__socials">
@@ -223,14 +243,18 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted } from "vue";
+import SponsorMarquees from "../components/sponsors/SponsorMarquees.vue";
+import SponsorMarqueeRow from "../components/sponsors/SponsorMarqueeRow.vue";
 import bg1 from "../assets/background1.jpg";
 import bg2 from "../assets/background2.jpg";
 import bg3 from "../assets/background3.jpg";
 import bg4 from "../assets/background4.jpg";
 import markHead from "../assets/mark_head.png";
+import mooseArt from "../assets/flyer/poster_hoedown_2026_01_cropped.png";
 import partyVideo from "../assets/party_all_the_time.mp4";
-import poster from "../assets/flyer/poster_hoedown_2026_01_cropped.jpg";
-import posterGif from "../assets/flyer/poster_hoedown_2026_04_cropped.gif";
+
+const mooseRef = ref(null);
+let mooseObserver = null;
 
 const ROTATION_MS = 4000;
 const FADE_MS = 1000;
@@ -263,6 +287,29 @@ function advance() {
   }
 }
 
+function setupMooseReveal() {
+  const el = mooseRef.value;
+  if (!el) return;
+
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    el.classList.add("landing__moose--visible");
+    return;
+  }
+
+  mooseObserver = new IntersectionObserver(
+    ([entry]) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("landing__moose--visible");
+        mooseObserver?.disconnect();
+        mooseObserver = null;
+      }
+    },
+    { threshold: 0.65 }
+  );
+
+  mooseObserver.observe(el);
+}
+
 onMounted(() => {
   images.forEach((src) => {
     new Image().src = src;
@@ -270,10 +317,12 @@ onMounted(() => {
   if (images.length > 1) {
     intervalId = setInterval(advance, ROTATION_MS);
   }
+  setupMooseReveal();
 });
 
 onUnmounted(() => {
   if (intervalId) clearInterval(intervalId);
+  mooseObserver?.disconnect();
 });
 
 const showVideo = ref(false);
@@ -338,6 +387,58 @@ const categories = [
   padding: 28px 16px;
 }
 
+.landing__moose-block {
+  margin: 12px 0 6px;
+}
+
+.landing__moose {
+  display: block;
+  width: min(72vw, 420px);
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+  transform: scale(0);
+  transform-origin: center center;
+  opacity: 0;
+  filter: drop-shadow(0 6px 28px rgba(0, 0, 0, 0.55));
+
+  &--visible {
+    animation: moose-reveal 1.15s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+}
+
+@keyframes moose-reveal {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+
+  70% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  85% {
+    transform: scale(1.05);
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .landing__moose {
+    transform: scale(1);
+    opacity: 1;
+
+    &--visible {
+      animation: none;
+    }
+  }
+}
+
 // Text
 .landing__date {
   font-size: 2.8vw;
@@ -355,16 +456,13 @@ const categories = [
   text-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
 }
 
-.landing__entry {
-  font-size: 4.4vw;
-  margin: 0 0 4px;
-  font-weight: 500;
-}
-
+.landing__entry,
 .landing__time {
-  font-size: 3.8vw;
-  margin: 0;
-  opacity: 0.85;
+  font-size: 2vw;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin: 0px;
+//   opacity: 0.85;
 }
 
 .landing__categories-label {
@@ -621,7 +719,7 @@ const categories = [
   }
 
   .landing__content {
-    max-width: 680px;
+    max-width: 625px;
     width: auto;
     border-radius: 20px;
     padding: 48px 40px;
@@ -640,13 +738,8 @@ const categories = [
     margin: 0 0 8px;
   }
 
-  .landing__entry {
-    font-size: 1.25rem;
-    margin: 0 0 4px;
-  }
-
-  .landing__time {
-    font-size: 1.1rem;
+  .landing__moose {
+    width: min(420px, 62%);
   }
 
   .landing__categories-label {

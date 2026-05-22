@@ -1,0 +1,68 @@
+/**
+ * Sponsor marquee configuration — edit this file each year.
+ *
+ * 1. Drop PNG/SVG logos into `src/assets/sponsors/`
+ * 2. Add or remove entries below (keep `id` unique)
+ * 3. Optional: set `url` for clickable logos later
+ */
+
+import auntySkates from "../assets/sponsors/AuntySkates.png";
+import baitshop from "../assets/sponsors/Baitshop.png";
+import cjsSkatepark from "../assets/sponsors/CJsSKATEPARK.png";
+import cityOfToronto from "../assets/sponsors/City_of_Toronto.png";
+import clarksideShopdogs from "../assets/sponsors/Clarkside_Shopdogs.png";
+import comacanSkateboards from "../assets/sponsors/Comacan_Skateboards.png";
+import drivewaySkateshop from "../assets/sponsors/Driveway_Skateshop.png";
+import gnarOptics from "../assets/sponsors/GNAR_OPTICS.png";
+import hammerSkateboard from "../assets/sponsors/Hammer_Skateboard.png";
+import heartbeatHotsauce from "../assets/sponsors/Heartbeat_Hotsauce.png";
+import interiorcare from "../assets/sponsors/Interiorcare.png";
+import madnessSkateboards from "../assets/sponsors/Madness_Skateboards.png";
+import onTheSpotCleaners from "../assets/sponsors/On_the_Spot_Cleaners.png";
+import ontarioSkateboarding from "../assets/sponsors/Ontario_Skateboarding.png";
+import sbcMedia from "../assets/sponsors/SBC_Media.png";
+import streetArtToronto from "../assets/sponsors/Street_Art_Toronto.png";
+import witzelDyce from "../assets/sponsors/Witzel_Dyce_Engineering.png";
+import wordZine from "../assets/sponsors/Word_Zine.png";
+import ehTeam from "../assets/sponsors/ehteam.png";
+
+/** Toggle marquees without touching layout code. */
+export const sponsorMarqueeConfig = {
+  /** Viewport width where layout switches: side columns (wide) vs horizontal strip (narrow) */
+  breakpointPx: 960,
+  vertical: {
+    enabled: true,
+    leftDurationSeconds: 48,
+    rightDurationSeconds: 62,
+  },
+  horizontal: {
+    enabled: true,
+    durationSeconds: 42,
+  },
+};
+
+/**
+ * All sponsors for the current event.
+ * Split across left/right columns automatically in SponsorMarquees.vue.
+ */
+export const sponsors = [
+  { id: "aunty-skates", name: "Aunty Skates", logo: auntySkates },
+  { id: "baitshop", name: "Baitshop", logo: baitshop },
+  { id: "cjs-skatepark", name: "CJ's Skatepark", logo: cjsSkatepark },
+  { id: "city-of-toronto", name: "City of Toronto", logo: cityOfToronto },
+  { id: "clarkside-shopdogs", name: "Clarkside Shopdogs", logo: clarksideShopdogs },
+  { id: "comacan", name: "Comacan Skateboards", logo: comacanSkateboards },
+  { id: "driveway", name: "Driveway Skateshop", logo: drivewaySkateshop },
+  { id: "gnar-optics", name: "Gnar Optics", logo: gnarOptics },
+  { id: "hammer", name: "Hammer Skateboard", logo: hammerSkateboard },
+  { id: "heartbeat-hotsauce", name: "Heartbeat Hotsauce", logo: heartbeatHotsauce },
+  { id: "interiorcare", name: "Interiorcare", logo: interiorcare },
+  { id: "madness", name: "Madness Skateboards", logo: madnessSkateboards },
+  { id: "on-the-spot", name: "On The Spot Cleaners", logo: onTheSpotCleaners },
+  { id: "ontario-skateboarding", name: "Ontario Skateboarding", logo: ontarioSkateboarding },
+  { id: "sbc-media", name: "SBC Media", logo: sbcMedia },
+  { id: "street-art-toronto", name: "Street Art Toronto", logo: streetArtToronto },
+  { id: "witzel-dyce", name: "Witzel Dyce Engineering", logo: witzelDyce },
+  { id: "word-zine", name: "Word Zine", logo: wordZine },
+  { id: "eh-team", name: "eh team", logo: ehTeam },
+];
