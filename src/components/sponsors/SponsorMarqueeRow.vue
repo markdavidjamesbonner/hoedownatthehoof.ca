@@ -14,7 +14,7 @@
         >
           <img
             class="sponsor-marquee-row__logo"
-            :src="sponsor.logo"
+            :src="resolveMarqueeLogo(sponsor)"
             :alt="sponsor.name"
             loading="lazy"
             decoding="async"
@@ -29,7 +29,7 @@
         >
           <img
             class="sponsor-marquee-row__logo"
-            :src="sponsor.logo"
+            :src="resolveMarqueeLogo(sponsor)"
             alt=""
             loading="lazy"
             decoding="async"
@@ -42,7 +42,7 @@
 
 <script setup>
 import { computed } from "vue";
-import { sponsorMarqueeConfig, sponsors } from "../../config/sponsors";
+import { sponsorMarqueeConfig, sponsors, resolveMarqueeLogo } from "../../config/sponsors";
 import { useMarqueeBreakpoint } from "./useMarqueeBreakpoint.js";
 
 const config = sponsorMarqueeConfig.horizontal;

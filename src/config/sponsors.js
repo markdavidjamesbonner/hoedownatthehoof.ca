@@ -4,11 +4,13 @@
  * 1. Drop PNG/SVG logos into `src/assets/sponsors/`
  * 2. Add or remove entries below (keep `id` unique)
  * 3. Optional: set `url` for clickable logos later
+ * 4. Optional: set `logoOnDark` when a light-background variant is needed in marquees
  */
 
 import auntySkates from "../assets/sponsors/AuntySkates.png";
 import baitshop from "../assets/sponsors/Baitshop.png";
 import cjsSkatepark from "../assets/sponsors/CJsSKATEPARK.png";
+import cjsSkateparkWhite from "../assets/sponsors/CJsSKATEPARK_white.png";
 import cityOfToronto from "../assets/sponsors/City_of_Toronto.png";
 import clarksideShopdogs from "../assets/sponsors/Clarkside_Shopdogs.png";
 import comacanSkateboards from "../assets/sponsors/Comacan_Skateboards.png";
@@ -32,12 +34,12 @@ export const sponsorMarqueeConfig = {
   breakpointPx: 960,
   vertical: {
     enabled: true,
-    leftDurationSeconds: 48,
-    rightDurationSeconds: 62,
+    leftDurationSeconds: 22,
+    rightDurationSeconds: 22,
   },
   horizontal: {
     enabled: true,
-    durationSeconds: 42,
+    durationSeconds: 22,
   },
 };
 
@@ -48,7 +50,12 @@ export const sponsorMarqueeConfig = {
 export const sponsors = [
   { id: "aunty-skates", name: "Aunty Skates", logo: auntySkates },
   { id: "baitshop", name: "Baitshop", logo: baitshop },
-  { id: "cjs-skatepark", name: "CJ's Skatepark", logo: cjsSkatepark },
+  {
+    id: "cjs-skatepark",
+    name: "CJ's Skatepark",
+    logo: cjsSkatepark,
+    logoOnDark: cjsSkateparkWhite,
+  },
   { id: "city-of-toronto", name: "City of Toronto", logo: cityOfToronto },
   { id: "clarkside-shopdogs", name: "Clarkside Shopdogs", logo: clarksideShopdogs },
   { id: "comacan", name: "Comacan Skateboards", logo: comacanSkateboards },
@@ -66,3 +73,8 @@ export const sponsors = [
   { id: "word-zine", name: "Word Zine", logo: wordZine },
   { id: "eh-team", name: "eh team", logo: ehTeam },
 ];
+
+/** Prefer `logoOnDark` for marquees on dark / busy backgrounds. */
+export function resolveMarqueeLogo(sponsor) {
+  return sponsor.logoOnDark ?? sponsor.logo;
+}

@@ -14,7 +14,7 @@
         >
           <img
             class="sponsor-marquee-column__logo"
-            :src="sponsor.logo"
+            :src="resolveMarqueeLogo(sponsor)"
             :alt="sponsor.name"
             loading="lazy"
             decoding="async"
@@ -29,7 +29,7 @@
         >
           <img
             class="sponsor-marquee-column__logo"
-            :src="sponsor.logo"
+            :src="resolveMarqueeLogo(sponsor)"
             alt=""
             loading="lazy"
             decoding="async"
@@ -41,6 +41,8 @@
 </template>
 
 <script setup>
+import { resolveMarqueeLogo } from "../../config/sponsors";
+
 defineProps({
   sponsors: {
     type: Array,
