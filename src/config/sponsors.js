@@ -30,6 +30,7 @@ import witzelDyce from "../assets/sponsors/Witzel_Dyce_Engineering.png";
 import wordZine from "../assets/sponsors/Word_Zine.png";
 import wordZineWhite from "../assets/sponsors/Word_Zine_white.png";
 import ehTeam from "../assets/sponsors/ehteam.png";
+import aceTrucks from "../assets/sponsors/ace-trucks.png";
 
 /** Toggle marquees without touching layout code. */
 export const sponsorMarqueeConfig = {
@@ -90,6 +91,7 @@ export const sponsors = [
     logoOnDark: wordZineWhite,
   },
   { id: "eh-team", name: "eh team", logo: ehTeam },
+  { id: "ace-trucks", name: "Ace Trucks", logo: aceTrucks },
 ];
 
 /** Prefer `logoOnDark` for marquees on dark / busy backgrounds. */
