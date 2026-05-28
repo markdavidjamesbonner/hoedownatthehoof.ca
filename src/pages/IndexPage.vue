@@ -446,11 +446,13 @@ const categories = [
 
 // Text
 .landing__date {
-    font-size: 2.8vw;
-    letter-spacing: 0.18em;
+    font-size: 1.25rem;
+    line-height: 1;
+    font-weight: 700;
+    letter-spacing: 0.05em;
     text-transform: uppercase;
-    margin: 0 0 10px;
-    opacity: 0.85;
+    margin: 0px;
+    /* opacity: 0.85; */
 }
 
 .landing__title {
@@ -469,7 +471,7 @@ const categories = [
     letter-spacing: 0.05em;
     text-transform: uppercase;
     margin: 0px;
-    //   opacity: 0.85;
+    /* opacity: 0.85; */
 }
 
 .landing__categories-label {
