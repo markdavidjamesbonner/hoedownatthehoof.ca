@@ -220,6 +220,51 @@
     </div>
 
     <Teleport to="body">
+      <div
+        v-if="showPosterOverlay"
+        ref="posterOverlayRef"
+        class="poster-overlay"
+        @click.self="closePosterOverlay"
+      >
+        <div
+          ref="posterCardRef"
+          class="poster-card"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Hoedown poster preview"
+        >
+          <button
+            class="poster-card__dismiss"
+            type="button"
+            aria-label="Close poster preview"
+            @click="closePosterOverlay"
+          >
+            &times;
+          </button>
+
+          <img
+            :src="posterPreviewJpg"
+            alt="Hoedown at The Hoof event poster"
+            class="poster-card__image"
+          />
+
+          <div class="poster-card__actions">
+            <a
+              :href="posterPdf"
+              download="hoedown_poster_final.pdf"
+              class="poster-card__download"
+            >
+              download & share the pdf
+            </a>
+            <button class="poster-card__close" type="button" @click="closePosterOverlay">
+              close
+            </button>
+          </div>
+        </div>
+      </div>
+    </Teleport>
+
+    <Teleport to="body">
       <Transition name="egg-fade">
         <div v-if="showVideo" class="egg-backdrop" @click.self="closeVideo">
           <div class="egg-player">
@@ -242,7 +287,8 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from "vue";
+import { ref, onMounted, onUnmounted, nextTick } from "vue";
+import { gsap } from "gsap";
 import SponsorMarquees from "../components/sponsors/SponsorMarquees.vue";
 import SponsorMarqueeRow from "../components/sponsors/SponsorMarqueeRow.vue";
 import bg1 from "../assets/background1.jpg";
@@ -251,6 +297,8 @@ import bg3 from "../assets/background3.jpg";
 import bg4 from "../assets/background4.jpg";
 import markHead from "../assets/mark_head.png";
 import mooseArt from "../assets/flyer/poster_hoedown_2026_01_cropped.png";
+import posterPreviewJpg from "../assets/poster/hoedown_poster_final.jpg";
+import posterPdf from "../assets/poster/hoedown_poster_final.pdf";
 import partyVideo from "../assets/party_all_the_time.mp4";
 
 const mooseRef = ref(null);
@@ -266,6 +314,13 @@ const layerA = ref(images[0] ?? "");
 const layerB = ref(images[1] ?? images[0] ?? "");
 let currentIndex = 0;
 let intervalId = null;
+const showPosterOverlay = ref(true);
+const posterOverlayRef = ref(null);
+const posterCardRef = ref(null);
+let posterTimeline = null;
+const POSTER_SPIRAL_DURATION = 2.35;
+const POSTER_SPIRAL_TURNS = 3.65;
+const POSTER_SPIRAL_START_RADIUS = 190;
 
 function advance() {
   if (images.length <= 1) return;
@@ -310,7 +365,85 @@ function setupMooseReveal() {
   mooseObserver.observe(el);
 }
 
-onMounted(() => {
+function animatePosterOverlayIn() {
+  const overlay = posterOverlayRef.value;
+  const card = posterCardRef.value;
+  if (!overlay || !card || !showPosterOverlay.value) return;
+
+  posterTimeline?.kill();
+  posterTimeline = null;
+
+  const actionTargets = card.querySelectorAll(".poster-card__dismiss, .poster-card__actions");
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (prefersReducedMotion) {
+    gsap.set(overlay, { autoAlpha: 1 });
+    gsap.set(card, {
+      x: 0,
+      y: 0,
+      scale: 1,
+      rotation: 0,
+      transformOrigin: "center center",
+      clearProps: "filter",
+    });
+    gsap.set(actionTargets, { autoAlpha: 1, y: 0 });
+    return;
+  }
+
+  gsap.set(overlay, { autoAlpha: 0 });
+  gsap.set(card, {
+    x: 0,
+    y: 0,
+    scale: 0.18,
+    rotation: -540,
+    transformOrigin: "center center",
+  });
+  gsap.set(actionTargets, { autoAlpha: 0, y: 14 });
+
+  const spiralState = { t: 0 };
+  const twoPiTurns = Math.PI * 2 * POSTER_SPIRAL_TURNS;
+
+  // Tweak these constants to reshape the spiral feel.
+  const applySpiralFrame = (progress) => {
+    const eased = gsap.parseEase("power2.out")(progress);
+    const radius = POSTER_SPIRAL_START_RADIUS * (1 - eased);
+    const angle = -Math.PI / 2 + twoPiTurns * progress;
+    const x = Math.cos(angle) * radius;
+    const y = Math.sin(angle) * radius;
+    const scale = 0.18 + 0.82 * eased;
+    const rotation = -540 * (1 - eased);
+    gsap.set(card, { x, y, scale, rotation });
+  };
+
+  applySpiralFrame(0);
+
+  posterTimeline = gsap.timeline();
+  posterTimeline
+    .to(overlay, { autoAlpha: 1, duration: 0.38 }, 0)
+    .to(
+      spiralState,
+      {
+        t: 1,
+        duration: POSTER_SPIRAL_DURATION,
+        ease: "none",
+        onUpdate: () => applySpiralFrame(spiralState.t),
+      },
+      0
+    )
+    .to(
+      actionTargets,
+      { autoAlpha: 1, y: 0, duration: 0.35, ease: "power2.out", stagger: 0.05 },
+      `-=${Math.min(0.5, POSTER_SPIRAL_DURATION * 0.22)}`
+    );
+}
+
+function closePosterOverlay() {
+  posterTimeline?.kill();
+  posterTimeline = null;
+  showPosterOverlay.value = false;
+}
+
+onMounted(async () => {
   images.forEach((src) => {
     new Image().src = src;
   });
@@ -318,11 +451,15 @@ onMounted(() => {
     intervalId = setInterval(advance, ROTATION_MS);
   }
   setupMooseReveal();
+  await nextTick();
+  animatePosterOverlayIn();
 });
 
 onUnmounted(() => {
   if (intervalId) clearInterval(intervalId);
   mooseObserver?.disconnect();
+  posterTimeline?.kill();
+  posterTimeline = null;
 });
 
 const showVideo = ref(false);
@@ -462,7 +599,7 @@ const categories = [
   letter-spacing: 0.05em;
   text-transform: uppercase;
   margin: 0px;
-//   opacity: 0.85;
+  //   opacity: 0.85;
 }
 
 .landing__categories-label {
@@ -708,6 +845,88 @@ const categories = [
 .egg-fade-enter-from,
 .egg-fade-leave-to {
   opacity: 0;
+}
+
+.poster-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(14px, 3vw, 28px);
+  background: rgba(0, 0, 0, 0.84);
+}
+
+.poster-card {
+  position: relative;
+  width: fit-content;
+  max-width: 92vw;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-radius: 14px;
+  padding: 8px;
+  background: rgba(10, 10, 10, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 32px 70px rgba(0, 0, 0, 0.52);
+}
+
+.poster-card__dismiss {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 32px;
+  height: 32px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.65);
+  color: #fff;
+  font-size: 1.45rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.poster-card__image {
+  display: block;
+  width: min(88vw, 500px);
+  max-height: calc(92vh - 84px);
+  margin: 0 auto;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.poster-card__actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.poster-card__download,
+.poster-card__close {
+  border: 0;
+  border-radius: 999px;
+  padding: 10px 14px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.poster-card__download {
+  background: #e8ff63;
+  color: #23280a;
+}
+
+.poster-card__close {
+  background: #f56462;
+  color: #fff;
+}
+
+.poster-card__dismiss:hover,
+.poster-card__download:hover,
+.poster-card__close:hover {
+  filter: brightness(1.06);
 }
 
 // ─── DESKTOP (≥ 600px) ──────────────────────────────────────
