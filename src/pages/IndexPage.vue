@@ -41,11 +41,11 @@
             <div class="divider-star text-white">&#9733;</div>
 
             <p class="landing__people">
-                <span>
+                <!-- <span>
                     DJ: &nbsp;
                     <a href="https://instagram.com/josh_reid_randell" target="_blank" rel="noopener" :style="{ color: rainbowColors[0] }">@josh_reid_randell</a>
-                </span>
-                <br />
+                </span> -->
+                <!-- <br /> -->
                 <span>
                     MCs: &nbsp;
                     <a href="https://instagram.com/built4gnar" target="_blank" rel="noopener" :style="{ color: rainbowColors[1] }">@built4gnar</a>
@@ -68,6 +68,7 @@
             <p class="landing__section-title">Updates — stay tuned</p>
 
             <div class="landing__updates">
+
                 <a href="https://www.instagram.com/reel/DXWzM9vkRzY/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank" rel="noopener" class="update-card">
                     <div class="update-card__badge" :style="{ backgroundColor: rainbowColors[3] }">
                         CONFIRMED
@@ -76,20 +77,46 @@
                         <span class="update-card__name">Liam Pace</span>
                         <span class="update-card__detail">Pro Rider &bull; Madness Skateboards</span>
                         <span class="update-card__cta">
-                            Watch on Instagram &rarr;
+                            Follow on Instagram &rarr;
                         </span>
                     </div>
                 </a>
 
                 <a class="update-card">
                     <div class="update-card__badge" :style="{ backgroundColor: rainbowColors[1] }">
-                        UPDATE: May 22
+                        UPDATE
                     </div>
                     <div class="update-card__body">
                         <span class="update-card__name">Sponsors</span>
                         <span class="update-card__detail">Thanks for all the help, everyone!</span>
-                        <span class="update-card__cta">
+                        <!-- <span class="update-card__cta">
                             Stay tuned! (*If anyone has any better image files and wants to update their logo, please get at me.)
+                        </span> -->
+                    </div>
+                </a>
+
+                <a href="https://www.instagram.com/angelsuh2016/" target="_blank" rel="noopener" class="update-card">
+                    <div class="update-card__badge" :style="{ backgroundColor: rainbowColors[3] }">
+                        CONFIRMED
+                    </div>
+                    <div class="update-card__body">
+                        <span class="update-card__name">Angel Suh</span>
+                        <span class="update-card__detail">Amateur Rider &bull; L'État Skateboards, CJ's Skatepark</span>
+                        <span class="update-card__cta">
+                            Follow on Instagram &rarr;
+                        </span>
+                    </div>
+                </a>
+
+                <a href="https://www.instagram.com/josh_reid_randell/" target="_blank" rel="noopener" class="update-card">
+                    <div class="update-card__badge" :style="{ backgroundColor: rainbowColors[1] }">
+                        UPDATE
+                    </div>
+                    <div class="update-card__body">
+                        <span class="update-card__name">DJ — Josh Reid Randell</span>
+                        <span class="update-card__detail">Music Guy Extraordinaire</span>
+                        <span class="update-card__cta">
+                            Follow on Instagram &rarr;
                         </span>
                     </div>
                 </a>
