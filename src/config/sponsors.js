@@ -32,6 +32,12 @@ import wordZineWhite from "../assets/sponsors/Word_Zine_white.png";
 import ehTeam from "../assets/sponsors/ehteam.png";
 import aceTrucks from "../assets/sponsors/ace-trucks.png";
 import rideSkateShop from "../assets/sponsors/ride_skate_shop.png";
+import canadaSkateboard from "../assets/sponsors/Canada_Skateboard_horizontal_alpha_edite.png";
+import canadaSkateboardWhite from "../assets/sponsors/Canada_Skateboard_horizontal_alpha_edite_white.png";
+
+import jackass1 from "../assets/jackass/1x1_Jackass_Best_and_Last_0.jpg";
+import jackass2 from "../assets/jackass/Jackass_BestAndLast_Digital_4x5_1080x1350.jpg";
+
 
 /** Toggle marquees without touching layout code. */
 export const sponsorMarqueeConfig = {
@@ -94,6 +100,16 @@ export const sponsors = [
   { id: "eh-team", name: "eh team", logo: ehTeam },
   { id: "ace-trucks", name: "Ace Trucks", logo: aceTrucks },
   { id: "ride-skate-shop", name: "Ride Skate Shop", logo: rideSkateShop },
+  {
+    id: "canada-skateboard",
+    name: "Canada Skateboard",
+    logo: canadaSkateboard,
+    logoOnDark: canadaSkateboardWhite,
+  },
+
+  { id: "jackass-1", name: "Jackass: Best and Last", logo: jackass1 },
+  { id: "jackass-2", name: "Jackass: Best and Last", logo: jackass2 },
+
 ];
 
 /** Prefer `logoOnDark` for marquees on dark / busy backgrounds. */

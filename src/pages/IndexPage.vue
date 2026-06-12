@@ -70,8 +70,8 @@
             <div class="landing__updates">
 
                 <a href="https://www.instagram.com/reel/DXWzM9vkRzY/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank" rel="noopener" class="update-card">
-                    <div class="update-card__badge" :style="{ backgroundColor: rainbowColors[3] }">
-                        CONFIRMED
+                    <div class="update-card__badge" :style="{ backgroundColor: rainbowColors[6] }">
+                        RIDERS
                     </div>
                     <div class="update-card__body">
                         <span class="update-card__name">Liam Pace</span>
@@ -83,11 +83,11 @@
                 </a>
 
                 <a class="update-card">
-                    <div class="update-card__badge" :style="{ backgroundColor: rainbowColors[1] }">
-                        UPDATE
+                    <div class="update-card__badge" :style="{ backgroundColor: rainbowColors[9] }">
+                        SPONSORS
                     </div>
                     <div class="update-card__body">
-                        <span class="update-card__name">Sponsors</span>
+                        <span class="update-card__name">Sponsorship matters, and it makes this happen!</span>
                         <span class="update-card__detail">Thanks for all the help, everyone!</span>
                         <!-- <span class="update-card__cta">
                             Stay tuned! (*If anyone has any better image files and wants to update their logo, please get at me.)
@@ -96,8 +96,8 @@
                 </a>
 
                 <a href="https://www.instagram.com/angelsuh2016/" target="_blank" rel="noopener" class="update-card">
-                    <div class="update-card__badge" :style="{ backgroundColor: rainbowColors[3] }">
-                        CONFIRMED
+                    <div class="update-card__badge" :style="{ backgroundColor: rainbowColors[6] }">
+                        RIDERS
                     </div>
                     <div class="update-card__body">
                         <span class="update-card__name">Angel Suh</span>
@@ -109,8 +109,8 @@
                 </a>
 
                 <a href="https://www.instagram.com/josh_reid_randell/" target="_blank" rel="noopener" class="update-card">
-                    <div class="update-card__badge" :style="{ backgroundColor: rainbowColors[1] }">
-                        UPDATE
+                    <div class="update-card__badge" :style="{ backgroundColor: rainbowColors[7] }">
+                        MUSIC
                     </div>
                     <div class="update-card__body">
                         <span class="update-card__name">DJ — Josh Reid Randell</span>
@@ -119,6 +119,19 @@
                             Follow on Instagram &rarr;
                         </span>
                     </div>
+                </a>
+
+                <!-- Jackass - June 11, 2026 -->
+                <a href="https://www.jackassmovie.com/" target="_blank" rel="noopener" class="update-card">
+                    <div class="update-card__badge" :style="{ backgroundColor: rainbowColors[9] }">
+                        SPONSORS
+                    </div>
+                    <div class="update-card__body">
+                        <span class="update-card__name">Jackass: Best and Last <span class="update-card__detail">— In theatres June 26th.</span></span>
+
+                        <span class="update-card__cta">Jackass street team will be onsite, supporting the newest instalment of their beloved passion-project and franchise hit.</span>
+                    </div>
+
                 </a>
 
             </div>
@@ -178,6 +191,7 @@
                 </div>
             </Transition>
         </Teleport>
+
     </q-page>
 </template>
 
@@ -373,8 +387,14 @@ const rainbowColors = [
     "#FF8C00",
     "#FFD700",
     "#4CAF50",
-    "#42A5F5",
-    "#AB47BC",
+    "#42A5F5", //4
+    "#AB47BC", //5
+
+    "#BF360C", //6 — burnt orange
+    "#FF6D00", //7 — vivid orange
+    "#FFAB40", //8 — tangerine
+    "#FFD180" //9 — pale apricot
+
 ];
 
 const chipColors = [
@@ -601,6 +621,16 @@ const categories = [
     font-size: 0.7rem;
     margin-top: 4px;
     opacity: 0.5;
+}
+
+.update-card__jackass {
+  flex-shrink: 0;
+//   align-self: right;
+  width: 100px;
+  height: 100px;
+//   margin: 8px 10px 8px 0;
+  object-fit: cover;
+  border-radius: 2px;
 }
 
 .landing__socials {
