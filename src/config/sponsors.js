@@ -24,7 +24,7 @@ import madnessSkateboards from "../assets/sponsors/Madness_Skateboards.png";
 import onTheSpotCleaners from "../assets/sponsors/On_the_Spot_Cleaners.png";
 import ontarioSkateboarding from "../assets/sponsors/Ontario_Skateboarding.png";
 import sbcMedia from "../assets/sponsors/SBC_Media.png";
-import streetArtToronto from "../assets/sponsors/Street_Art_Toronto.png";
+import streetArtToronto from "../assets/sponsors/Street_Art_Toronto_banner.png";
 import streetArtTorontoWhite from "../assets/sponsors/Street_Art_Toronto_white.png";
 import witzelDyce from "../assets/sponsors/Witzel_Dyce_Engineering.png";
 import wordZine from "../assets/sponsors/Word_Zine.png";
@@ -88,7 +88,7 @@ export const sponsors = [
     id: "street-art-toronto",
     name: "Street Art Toronto",
     logo: streetArtToronto,
-    logoOnDark: streetArtTorontoWhite,
+    // logoOnDark: streetArtTorontoWhite,
   },
   { id: "witzel-dyce", name: "Witzel Dyce Engineering", logo: witzelDyce },
   {
