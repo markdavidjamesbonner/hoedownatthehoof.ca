@@ -11,6 +11,7 @@
           v-for="sponsor in sponsors"
           :key="`${sponsor.id}-primary`"
           class="sponsor-marquee-column__item"
+          :class="`sponsor-marquee-column__item--${resolveMarqueeTheme(sponsor)}`"
         >
           <img
             class="sponsor-marquee-column__logo"
@@ -26,6 +27,7 @@
           v-for="sponsor in sponsors"
           :key="`${sponsor.id}-clone`"
           class="sponsor-marquee-column__item"
+          :class="`sponsor-marquee-column__item--${resolveMarqueeTheme(sponsor)}`"
         >
           <img
             class="sponsor-marquee-column__logo"
@@ -41,7 +43,7 @@
 </template>
 
 <script setup>
-import { resolveMarqueeLogo } from "../../config/sponsors";
+import { resolveMarqueeLogo, resolveMarqueeTheme } from "../../config/sponsors";
 
 defineProps({
   sponsors: {
@@ -116,8 +118,17 @@ defineProps({
   min-height: calc(var(--marquee-logo-max-height) + 1rem);
   padding: 0.35rem 0.5rem;
   border-radius: 10px;
-  background: rgba(0, 0, 0, 0.22);
-  backdrop-filter: blur(2px);
+
+  &--dark {
+    background: rgba(0, 0, 0, 0.22);
+    backdrop-filter: blur(2px);
+  }
+
+  &--light {
+    // background: rgba(255, 255, 255, 0.14);
+    background: rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(6px);
+  }
 }
 
 .sponsor-marquee-column__logo {

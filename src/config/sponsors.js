@@ -4,7 +4,10 @@
  * 1. Drop PNG/SVG logos into `src/assets/sponsors/`
  * 2. Add or remove entries below (keep `id` unique)
  * 3. Optional: set `url` for clickable logos later
- * 4. Optional: set `logoOnDark` when a light-background variant is needed in marquees
+ * 4. Optional: set `logoOnDark` — the light/white logo variant for dark backgrounds
+ * 5. Optional: set `marqueeLogo` — controls which asset + pill style is used in marquees:
+ *      'onDark'  → shows `logoOnDark` on a dark pill  (for white/light logos)
+ *      'default' → shows `logo` on a light pill        (for dark logos — the default)
  */
 
 import auntySkates from "../assets/sponsors/AuntySkates.png";
@@ -25,7 +28,7 @@ import onTheSpotCleaners from "../assets/sponsors/On_the_Spot_Cleaners.png";
 import ontarioSkateboarding from "../assets/sponsors/Ontario_Skateboarding.png";
 import sbcMedia from "../assets/sponsors/SBC_Media.png";
 import streetArtToronto from "../assets/sponsors/Street_Art_Toronto_banner.png";
-import streetArtTorontoWhite from "../assets/sponsors/Street_Art_Toronto_white.png";
+import streetArtTorontoWhite from "../assets/sponsors/Street_Art_Toronto_banner.png";
 import witzelDyce from "../assets/sponsors/Witzel_Dyce_Engineering.png";
 import wordZine from "../assets/sponsors/Word_Zine.png";
 import wordZineWhite from "../assets/sponsors/Word_Zine_white.png";
@@ -62,12 +65,13 @@ export const sponsorMarqueeConfig = {
  */
 export const sponsors = [
   { id: "aunty-skates", name: "Aunty Skates", logo: auntySkates },
-  { id: "baitshop", name: "Baitshop", logo: baitshop },
+  { id: "baitshop", name: "Baitshop", logo: baitshop, marqueeLogo: "onDark", },
   {
     id: "cjs-skatepark",
     name: "CJ's Skatepark",
     logo: cjsSkatepark,
     logoOnDark: cjsSkateparkWhite,
+    marqueeLogo: "onDark",
   },
   { id: "city-of-toronto", name: "City of Toronto", logo: cityOfToronto },
   { id: "clarkside-shopdogs", name: "Clarkside Shopdogs", logo: clarksideShopdogs },
@@ -76,21 +80,33 @@ export const sponsors = [
     id: "driveway",
     name: "Driveway Skateshop",
     logo: drivewaySkateshop,
-    logoOnDark: drivewaySkateshopWhite,
+    // logoOnDark: drivewaySkateshopWhite,
+    // marqueeLogo: "onDark",
   },
-  { id: "gnar-optics", name: "Gnar Optics", logo: gnarOptics },
-  { id: "hammer", name: "Hammer Skateboard", logo: hammerSkateboard },
+  {
+    id: "gnar-optics",
+    name: "Gnar Optics",
+    logo: gnarOptics,
+    marqueeLogo: "onDark",
+  },
+  {
+    id: "hammer",
+    name: "Hammer Skateboard",
+    logo: hammerSkateboard,
+    marqueeLogo: "onDark",
+  },
   { id: "heartbeat-hotsauce", name: "Heartbeat Hotsauce", logo: heartbeatHotsauce },
   { id: "interiorcare", name: "Interiorcare", logo: interiorcare },
   { id: "madness", name: "Madness Skateboards", logo: madnessSkateboards },
-  { id: "on-the-spot", name: "On The Spot Cleaners", logo: onTheSpotCleaners },
+  { id: "on-the-spot", name: "On The Spot Cleaners", logo: onTheSpotCleaners, marqueeLogo: "onDark", },
   { id: "ontario-skateboarding", name: "Ontario Skateboarding", logo: ontarioSkateboarding },
-  { id: "sbc-media", name: "SBC Media", logo: sbcMedia },
+  { id: "sbc-media", name: "SBC Media", logo: sbcMedia, marqueeLogo: "onDark", },
   {
     id: "street-art-toronto",
     name: "Street Art Toronto",
     logo: streetArtToronto,
-    // logoOnDark: streetArtTorontoWhite,
+    logoOnDark: streetArtTorontoWhite,
+    marqueeLogo: "onDark",
   },
   { id: "witzel-dyce", name: "Witzel Dyce Engineering", logo: witzelDyce },
   {
@@ -98,6 +114,7 @@ export const sponsors = [
     name: "Word Zine",
     logo: wordZine,
     logoOnDark: wordZineWhite,
+    marqueeLogo: "onDark",
   },
   { id: "eh-team", name: "eh team", logo: ehTeam },
   { id: "ace-trucks", name: "Ace Trucks", logo: aceTrucks },
@@ -107,16 +124,25 @@ export const sponsors = [
     name: "Canada Skateboard",
     logo: canadaSkateboard,
     logoOnDark: canadaSkateboardWhite,
+    marqueeLogo: "onDark",
   },
 
-  { id: "jackass-1", name: "Jackass: Best and Last", logo: jackass1 },
-  { id: "jackass-2", name: "Jackass: Best and Last", logo: jackass2 },
+  { id: "jackass-1", name: "Jackass: Best and Last", logo: jackass1, marqueeLogo: "onDark", },
+  { id: "jackass-2", name: "Jackass: Best and Last", logo: jackass2, marqueeLogo: "onDark", },
 
   { id: "bowl-champs", name: "Bowl-Champs, Summit Series", logo: bowlChamps },
 
 ];
 
-/** Prefer `logoOnDark` for marquees on dark / busy backgrounds. */
+/** Returns the correct logo asset based on the sponsor's `marqueeLogo` flag. */
 export function resolveMarqueeLogo(sponsor) {
-  return sponsor.logoOnDark ?? sponsor.logo;
+  if (sponsor.marqueeLogo === "onDark") {
+    return sponsor.logoOnDark ?? sponsor.logo;
+  }
+  return sponsor.logo;
+}
+
+/** Returns 'dark' or 'light' — drives pill background in marquee components. */
+export function resolveMarqueeTheme(sponsor) {
+  return sponsor.marqueeLogo === "onDark" ? "dark" : "light";
 }

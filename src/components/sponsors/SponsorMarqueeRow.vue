@@ -11,6 +11,7 @@
           v-for="sponsor in sponsors"
           :key="`${sponsor.id}-primary`"
           class="sponsor-marquee-row__item"
+          :class="`sponsor-marquee-row__item--${resolveMarqueeTheme(sponsor)}`"
         >
           <img
             class="sponsor-marquee-row__logo"
@@ -26,6 +27,7 @@
           v-for="sponsor in sponsors"
           :key="`${sponsor.id}-clone`"
           class="sponsor-marquee-row__item"
+          :class="`sponsor-marquee-row__item--${resolveMarqueeTheme(sponsor)}`"
         >
           <img
             class="sponsor-marquee-row__logo"
@@ -42,7 +44,7 @@
 
 <script setup>
 import { computed } from "vue";
-import { sponsorMarqueeConfig, sponsors, resolveMarqueeLogo } from "../../config/sponsors";
+import { sponsorMarqueeConfig, sponsors, resolveMarqueeLogo, resolveMarqueeTheme } from "../../config/sponsors";
 import { useMarqueeBreakpoint } from "./useMarqueeBreakpoint.js";
 
 const config = sponsorMarqueeConfig.horizontal;
@@ -93,7 +95,16 @@ const showMarquee = computed(() => config.enabled && isNarrowViewport.value);
   height: calc(var(--marquee-logo-max-height) + 0.75rem);
   padding: 0.35rem 0.65rem;
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.06);
+
+  &--dark {
+    background: rgba(0, 0, 0, 0.22);
+    backdrop-filter: blur(2px);
+  }
+
+  &--light {
+    background: rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(6px);
+  }
 }
 
 .sponsor-marquee-row__logo {
