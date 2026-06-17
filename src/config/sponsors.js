@@ -38,6 +38,8 @@ import canadaSkateboardWhite from "../assets/sponsors/Canada_Skateboard_horizont
 import jackass1 from "../assets/jackass/1x1_Jackass_Best_and_Last_0.jpg";
 import jackass2 from "../assets/jackass/Jackass_BestAndLast_Digital_4x5_1080x1350.jpg";
 
+import bowlChamps from "../assets/sponsors/BowlChampsFINAL.png";
+
 
 /** Toggle marquees without touching layout code. */
 export const sponsorMarqueeConfig = {
@@ -109,6 +111,8 @@ export const sponsors = [
 
   { id: "jackass-1", name: "Jackass: Best and Last", logo: jackass1 },
   { id: "jackass-2", name: "Jackass: Best and Last", logo: jackass2 },
+
+  { id: "bowl-champs", name: "Bowl-Champs, Summit Series", logo: bowlChamps },
 
 ];
 
