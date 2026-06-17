@@ -41,8 +41,8 @@ import canadaSkateboardWhite from "../assets/sponsors/Canada_Skateboard_horizont
 import jackass1 from "../assets/jackass/1x1_Jackass_Best_and_Last_0.jpg";
 import jackass2 from "../assets/jackass/Jackass_BestAndLast_Digital_4x5_1080x1350.jpg";
 
-import bowlChamps from "../assets/sponsors/BowlChampsFINAL.png";
-
+import bowlChampsDark from "../assets/sponsors/BowlChampsFINAL.png";
+import bowlChampsLight from "../assets/sponsors/BowlChamps-whiteFINAL.png";
 
 /** Toggle marquees without touching layout code. */
 export const sponsorMarqueeConfig = {
@@ -65,7 +65,7 @@ export const sponsorMarqueeConfig = {
  */
 export const sponsors = [
   { id: "aunty-skates", name: "Aunty Skates", logo: auntySkates },
-  { id: "baitshop", name: "Baitshop", logo: baitshop, marqueeLogo: "onDark", },
+  { id: "baitshop", name: "Baitshop", logo: baitshop, marqueeLogo: "onDark" },
   {
     id: "cjs-skatepark",
     name: "CJ's Skatepark",
@@ -74,7 +74,11 @@ export const sponsors = [
     marqueeLogo: "onDark",
   },
   { id: "city-of-toronto", name: "City of Toronto", logo: cityOfToronto },
-  { id: "clarkside-shopdogs", name: "Clarkside Shopdogs", logo: clarksideShopdogs },
+  {
+    id: "clarkside-shopdogs",
+    name: "Clarkside Shopdogs",
+    logo: clarksideShopdogs,
+  },
   { id: "comacan", name: "Comacan Skateboards", logo: comacanSkateboards },
   {
     id: "driveway",
@@ -90,17 +94,36 @@ export const sponsors = [
     marqueeLogo: "onDark",
   },
   {
+    id: "bowl-champs-light",
+    name: "Bowl-Champs, Summit Series",
+    logo: bowlChampsLight,
+    marqueeLogo: "onDark",
+  },
+  {
     id: "hammer",
     name: "Hammer Skateboard",
     logo: hammerSkateboard,
     marqueeLogo: "onDark",
   },
-  { id: "heartbeat-hotsauce", name: "Heartbeat Hotsauce", logo: heartbeatHotsauce },
+  {
+    id: "heartbeat-hotsauce",
+    name: "Heartbeat Hotsauce",
+    logo: heartbeatHotsauce,
+  },
   { id: "interiorcare", name: "Interiorcare", logo: interiorcare },
   { id: "madness", name: "Madness Skateboards", logo: madnessSkateboards },
-  { id: "on-the-spot", name: "On The Spot Cleaners", logo: onTheSpotCleaners, marqueeLogo: "onDark", },
-  { id: "ontario-skateboarding", name: "Ontario Skateboarding", logo: ontarioSkateboarding },
-  { id: "sbc-media", name: "SBC Media", logo: sbcMedia, marqueeLogo: "onDark", },
+  {
+    id: "on-the-spot",
+    name: "On The Spot Cleaners",
+    logo: onTheSpotCleaners,
+    marqueeLogo: "onDark",
+  },
+  {
+    id: "ontario-skateboarding",
+    name: "Ontario Skateboarding",
+    logo: ontarioSkateboarding,
+  },
+  { id: "sbc-media", name: "SBC Media", logo: sbcMedia, marqueeLogo: "onDark" },
   {
     id: "street-art-toronto",
     name: "Street Art Toronto",
@@ -127,11 +150,24 @@ export const sponsors = [
     marqueeLogo: "onDark",
   },
 
-  { id: "jackass-1", name: "Jackass: Best and Last", logo: jackass1, marqueeLogo: "onDark", },
-  { id: "jackass-2", name: "Jackass: Best and Last", logo: jackass2, marqueeLogo: "onDark", },
+  {
+    id: "jackass-1",
+    name: "Jackass: Best and Last",
+    logo: jackass1,
+    marqueeLogo: "onDark",
+  },
+  {
+    id: "jackass-2",
+    name: "Jackass: Best and Last",
+    logo: jackass2,
+    marqueeLogo: "onDark",
+  },
 
-  { id: "bowl-champs", name: "Bowl-Champs, Summit Series", logo: bowlChamps },
-
+  {
+    id: "bowl-champs-dark",
+    name: "Bowl-Champs, Summit Series",
+    logo: bowlChampsDark,
+  },
 ];
 
 /** Returns the correct logo asset based on the sponsor's `marqueeLogo` flag. */
