@@ -65,6 +65,20 @@
 
             <div class="divider-star text-white">&#9733;</div>
 
+            <!-- Post-event: poster download + results button -->
+            <div class="landing__post-event">
+                <img :src="posterPreviewJpg" alt="Hoedown at The Hoof 2026 poster" class="post-event__poster" />
+                <div class="post-event__actions">
+                    <a :href="posterPdf" download="hoedown_poster_final.pdf" class="post-event__btn post-event__btn--download">
+                        Download Poster
+                    </a>
+                    <button type="button" class="post-event__btn post-event__btn--results" @click="openResults">
+                        View Contest Results
+                    </button>
+                </div>
+            </div>
+
+            <!--
             <p class="landing__section-title">Updates — stay tuned</p>
 
             <div class="landing__updates">
@@ -89,9 +103,6 @@
                     <div class="update-card__body">
                         <span class="update-card__name">Sponsorship matters, and it makes this happen!</span>
                         <span class="update-card__detail">Thanks for all the help, everyone!</span>
-                        <!-- <span class="update-card__cta">
-                            Stay tuned! (*If anyone has any better image files and wants to update their logo, please get at me.)
-                        </span> -->
                     </div>
                 </a>
 
@@ -121,20 +132,18 @@
                     </div>
                 </a>
 
-                <!-- Jackass - June 11, 2026 -->
                 <a href="https://www.jackassmovie.com/" target="_blank" rel="noopener" class="update-card">
                     <div class="update-card__badge" :style="{ backgroundColor: rainbowColors[9] }">
                         SPONSORS
                     </div>
                     <div class="update-card__body">
-                        <span class="update-card__name">Jackass: Best and Last <span class="update-card__detail">— In theatres June 26th.</span></span>
-
+                        <span class="update-card__name">Jackass: Best and Last — In theatres June 26th.</span>
                         <span class="update-card__cta">Jackass street team will be onsite, supporting the newest instalment of their beloved passion-project and franchise hit.</span>
                     </div>
-
                 </a>
 
             </div>
+            -->
 
             <div class="landing__socials">
                 <a href="https://www.instagram.com/hoedownatthehoof/" target="_blank" rel="noopener" aria-label="Instagram">
@@ -160,25 +169,46 @@
 
         <Teleport to="body">
             <div v-if="showPosterOverlay" ref="posterOverlayRef" class="poster-overlay" @click.self="closePosterOverlay">
-                <div ref="posterCardRef" class="poster-card" role="dialog" aria-modal="true" aria-label="Hoedown poster preview">
-                    <button class="poster-card__dismiss" type="button" aria-label="Close poster preview" @click="closePosterOverlay">
-                        &times;
-                    </button>
+                <div ref="posterCardRef" class="poster-card" role="dialog" aria-modal="true"
+                    :aria-label="OVERLAY_MODE === 'poster' ? 'Hoedown poster preview' : 'Contest results'">
 
-                    <img :src="posterPreviewJpg" alt="Hoedown at The Hoof event poster" class="poster-card__image" />
+                    <button class="poster-card__dismiss" type="button"
+                        :aria-label="OVERLAY_MODE === 'poster' ? 'Close poster preview' : 'Close results'"
+                        @click="closePosterOverlay">&times;</button>
 
-                    <div class="poster-card__actions">
-                        <a :href="posterPdf" download="hoedown_poster_final.pdf" class="poster-card__download">
-                            download & share the pdf
-                        </a>
-                        <button class="poster-card__close" type="button" @click="closePosterOverlay">
-                            close
-                        </button>
-                    </div>
+                    <!-- Poster version (preserved for future use) -->
+                    <template v-if="OVERLAY_MODE === 'poster'">
+                        <img :src="posterPreviewJpg" alt="Hoedown at The Hoof event poster" class="poster-card__image" />
+                        <div class="poster-card__actions">
+                            <a :href="posterPdf" download="hoedown_poster_final.pdf" class="poster-card__download">
+                                download &amp; share the pdf
+                            </a>
+                            <button class="poster-card__close" type="button" @click="closePosterOverlay">close</button>
+                        </div>
+                    </template>
+
+                    <!-- Contest results version -->
+                    <template v-else>
+                        <div class="poster-card__results">
+                            <h1 class="poster-card__results-title" style="font-size: 3rem; font-weight: 900; letter-spacing: 0.005em;">Contest Results!</h1>
+                            <div v-for="section in contestResults" :key="section.category" class="poster-card__results-section">
+                                <h3 class="poster-card__results-category">{{ section.category }}</h3>
+                                <ol class="poster-card__results-list">
+                                    <li v-for="(place, i) in section.places" :key="i" :class="{ 'poster-card__results-podium': i < 3 }">
+                                        {{ place }}
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                        <div class="poster-card__actions">
+                            <button class="poster-card__close" type="button" @click="closePosterOverlay">close</button>
+                        </div>
+                    </template>
                 </div>
             </div>
         </Teleport>
 
+        <!-- Party Video -->
         <Teleport to="body">
             <Transition name="egg-fade">
                 <div v-if="showVideo" class="egg-backdrop" @click.self="closeVideo">
@@ -223,6 +253,9 @@ const layerA = ref(images[0] ?? "");
 const layerB = ref(images[1] ?? images[0] ?? "");
 let currentIndex = 0;
 let intervalId = null;
+// 'poster' | 'results' — flip back to 'poster' to restore the PDF overlay
+const OVERLAY_MODE = "results";
+
 const showPosterOverlay = ref(true);
 const posterOverlayRef = ref(null);
 const posterCardRef = ref(null);
@@ -230,6 +263,77 @@ let posterTimeline = null;
 const POSTER_SPIRAL_DURATION = 2.35;
 const POSTER_SPIRAL_TURNS = 3.65;
 const POSTER_SPIRAL_START_RADIUS = 190;
+
+const contestResults = [
+    {
+        category: "Groms (16 & Under)",
+        places: [
+            "1st — Madeline Power",
+            "2nd — Remy Bastien",
+            "3rd — Ray Yearsley",
+            "4th — Hana Takeuchi",
+            "5th — Duncan Cousins-Less",
+            "6th — Shepherd Yearsley",
+            "7th — Ben Power",
+            "8th — Darya Kampf",
+            "9th — Leo Tarakanova",
+        ],
+    },
+    {
+        category: "Legends (50+)",
+        places: [
+            "1st — Marc Ricciardelli",
+            "2nd — Josh Heatley",
+            "3rd — John Casciato",
+            "4th — Chris Prince",
+            "5th — Jeff Gluck",
+            "6th — Trevor Ullerick",
+            "7th — Olivia Proudfoot",
+            "8th — Darren Yearsley",
+            "9th — Sanjeev Shah",
+            "10th — Mark Tadijanovich",
+            "11th — Oorbee Shah",
+        ],
+    },
+    {
+        category: "Masters (40+)",
+        places: [
+            "1st — Matt Pancer",
+            "2nd — Andrew Yates",
+            "3rd — Ronny Restrepo",
+            "4th — Harley",
+            "5th — Rie Takahashi",
+            "6th — Steve Bowles",
+        ],
+    },
+    {
+        category: "Women's Open",
+        places: [
+            "1st — Fay De Fazio Ebert",
+            "2nd — Annie Bastien",
+            "3rd — Angel Suh",
+            "4th — Lua Mendes",
+            "5th — Natalie Chau",
+            "6th — Shandril Mintenko",
+        ],
+    },
+    {
+        category: "Men's Open",
+        places: [
+            "1st — Fay De Fazio Ebert",
+            "2nd — Pedro Cohen",
+            "3rd — Andre Young",
+            "4th — Devon Binnion",
+            "5th — Chiharu Law",
+            "6th — Jon Parrott",
+            "7th — Valentin Czivoi",
+            "8th — Jim Morrow",
+            "9th — Chase Harburn",
+            "10th — David Bloss",
+            "11th — Alec Policicchio",
+        ],
+    },
+];
 
 function advance() {
     if (images.length <= 1) return;
@@ -350,6 +454,11 @@ function closePosterOverlay() {
     posterTimeline?.kill();
     posterTimeline = null;
     showPosterOverlay.value = false;
+}
+
+function openResults() {
+    showPosterOverlay.value = true;
+    nextTick(() => animatePosterOverlayIn());
 }
 
 onMounted(async () => {
@@ -633,6 +742,53 @@ const categories = [
   border-radius: 2px;
 }
 
+.landing__post-event {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    margin: 10px 0 20px;
+}
+
+.post-event__poster {
+    width: min(70vw, 320px);
+    border-radius: 10px;
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.4);
+}
+
+.post-event__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+
+.post-event__btn {
+    border: 0;
+    border-radius: 999px;
+    padding: 12px 18px;
+    font-weight: 800;
+    font-size: 0.85rem;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+    cursor: pointer;
+    transition: filter 0.15s ease;
+
+    &:hover {
+        filter: brightness(1.08);
+    }
+}
+
+.post-event__btn--download {
+    background: #e8ff63;
+    color: #23280a;
+}
+
+.post-event__btn--results {
+    background: #f56462;
+    color: #fff;
+}
+
 .landing__socials {
     display: flex;
     justify-content: center;
@@ -857,6 +1013,47 @@ const categories = [
 .poster-card__download:hover,
 .poster-card__close:hover {
     filter: brightness(1.06);
+}
+
+.poster-card__results {
+    width: min(88vw, 500px);
+    max-height: calc(92vh - 84px);
+    overflow-y: auto;
+    padding: 20px 24px;
+    color: #fff;
+    text-align: center;
+}
+
+.poster-card__results-title {
+    font-size: clamp(1.6rem, 5vw, 2.2rem);
+    margin: 0 0 18px;
+    color: #e8ff63;
+}
+
+.poster-card__results-category {
+    margin: 20px 0 8px;
+    font-size: 1.05rem;
+    color: #e8ff63;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.poster-card__results-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.poster-card__results-list li {
+    padding: 4px 0;
+    font-size: 0.92rem;
+    color: rgba(255, 255, 255, 0.88);
+}
+
+.poster-card__results-podium {
+    font-weight: 700;
+    font-size: 1rem !important;
+    color: #fff !important;
 }
 
 // ─── DESKTOP (≥ 600px) ──────────────────────────────────────
